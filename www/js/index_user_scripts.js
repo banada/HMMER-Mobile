@@ -62,9 +62,9 @@
         
         //Source node
         context.beginPath();
-        context.arc(0.25*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
+        context.arc(0.10*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
         context.stroke();
-        context.fillText("Query", 0.20*canvas_width, 0.50*canvas_height+0.08*canvas_height);
+        context.fillText("Query", 0.05*canvas_width, 0.50*canvas_height+0.08*canvas_height);
                 
         //Tier 1 nodes
         var db = window.openDatabase("oar_results.db", "1.0", "oar_results", 1000000);
@@ -74,14 +74,14 @@
                     //console.log(res.rows.item(i).id);
                     //Draw circle
                     context.beginPath();
-                    context.arc(0.75*canvas_width, 0.25*res.rows.item(i).id*canvas_height, 15, 0, 2*Math.PI);
+                    context.arc(0.60*canvas_width, 0.25*res.rows.item(i).id*canvas_height, 15, 0, 2*Math.PI);
                     context.stroke();
                     //Draw text
-                    context.fillText(res.rows.item(i).species, 0.70*canvas_width, 0.25*res.rows.item(i).id*canvas_height+0.08*canvas_height);
+                    context.fillText(res.rows.item(i).species, 0.55*canvas_width, 0.25*res.rows.item(i).id*canvas_height+0.08*canvas_height);
                     //Draw line from source
                     context.beginPath();
-                    context.moveTo(0.25*canvas_width, 0.50*canvas_height);
-                    context.lineTo(0.75*canvas_width, 0.25*res.rows.item(i).id*canvas_height);
+                    context.moveTo(0.10*canvas_width, 0.50*canvas_height);
+                    context.lineTo(0.60*canvas_width, 0.25*res.rows.item(i).id*canvas_height);
                     context.stroke();
                 }
             });
@@ -110,26 +110,28 @@
         
         //Tier 1 node
         context.beginPath();
-        context.arc(0.25*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
+        context.arc(0.10*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
         context.stroke();
-        context.fillText("H. sapiens", 0.20*canvas_width, 0.50*canvas_height+0.08*canvas_height);
+        context.fillText("H. sapiens", 0.05*canvas_width, 0.50*canvas_height+0.08*canvas_height);
         
         //Tier 1 nodes
         var db = window.openDatabase("oar_results.db", "1.0", "oar_results", 1000000);
         db.transaction(function(tx) {
-            tx.executeSql('SELECT * FROM tier_2', [], function (tx, res) {
+            tx.executeSql('SELECT * FROM tier_2 WHERE id IN (4,6,7)', [], function (tx, res) {
+                var counter = 0;
                 for (var i=0; i<res.rows.length; i++) {
+                    counter++;
                     //console.log(res.rows.item(i).id);
                     //Draw circle
                     context.beginPath();
-                    context.arc(0.75*canvas_width, 0.125*res.rows.item(i).id*canvas_height, 15, 0, 2*Math.PI);
+                    context.arc(0.60*canvas_width, 0.25*counter*canvas_height, 15, 0, 2*Math.PI);
                     context.stroke();
                     //Draw text
-                    context.fillText(res.rows.item(i).species, 0.70*canvas_width, 0.125*res.rows.item(i).id*canvas_height+0.08*canvas_height);
+                    context.fillText(res.rows.item(i).species, 0.55*canvas_width, 0.25*counter*canvas_height+0.08*canvas_height);
                     //Draw line from source
                     context.beginPath();
-                    context.moveTo(0.25*canvas_width, 0.50*canvas_height);
-                    context.lineTo(0.75*canvas_width, 0.125*res.rows.item(i).id*canvas_height);
+                    context.moveTo(0.10*canvas_width, 0.50*canvas_height);
+                    context.lineTo(0.60*canvas_width, 0.25*counter*canvas_height);
                     context.stroke();
                 }
             });
@@ -153,32 +155,34 @@
         //Clear canvas
         context.clearRect(0, 0, canvas_width, canvas_height);
         
-        context.font = "12px Georgia";
+        context.font = "18px Georgia";
         context.rect(0,0,canvas_width,canvas_height);
         context.stroke();
         
-        //Tier 1 node
+        //Tier 2 node
         context.beginPath();
-        context.arc(0.25*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
+        context.arc(0.10*canvas_width,0.50*canvas_height,15,0,2*Math.PI);
         context.stroke();
-        context.fillText("R. norvegicus", 0.20*canvas_width, 0.50*canvas_height+0.08*canvas_height);
+        context.fillText("R. norvegicus", 0.05*canvas_width, 0.50*canvas_height+0.08*canvas_height);
         
-        //Tier 1 nodes
+        //Tier 3 nodes
         var db = window.openDatabase("oar_results.db", "1.0", "oar_results", 1000000);
         db.transaction(function(tx) {
-            tx.executeSql('SELECT * FROM tier_3', [], function (tx, res) {
+            tx.executeSql('SELECT * FROM tier_3 where id in (1,5,7)', [], function (tx, res) {
+                var counter = 0;
                 for (var i=0; i<res.rows.length; i++) {
+                    counter++;
                     //console.log(res.rows.item(i).id);
                     //Draw circle
                     context.beginPath();
-                    context.arc(0.75*canvas_width, 0.09*res.rows.item(i).id*canvas_height, 10, 0, 2*Math.PI);
+                    context.arc(0.60*canvas_width, 0.25*counter*canvas_height, 15, 0, 2*Math.PI);
                     context.stroke();
                     //Draw text
-                    context.fillText(res.rows.item(i).species, 0.70*canvas_width, 0.09*res.rows.item(i).id*canvas_height+0.05*canvas_height);
+                    context.fillText(res.rows.item(i).species, 0.55*canvas_width, 0.25*counter*canvas_height+0.08*canvas_height);
                     //Draw line from source
                     context.beginPath();
-                    context.moveTo(0.25*canvas_width, 0.50*canvas_height);
-                    context.lineTo(0.75*canvas_width, 0.09*res.rows.item(i).id*canvas_height);
+                    context.moveTo(0.10*canvas_width, 0.50*canvas_height);
+                    context.lineTo(0.60*canvas_width, 0.25*counter*canvas_height);
                     context.stroke();
                 }
             });
